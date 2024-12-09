@@ -1,0 +1,11 @@
+# this is the "requirements.txt" file...
+
+pandas
+
+IPython.display
+
+requests
+
+bs4
+
+json
