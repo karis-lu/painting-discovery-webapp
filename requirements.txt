@@ -2,10 +2,10 @@
 
 pandas
 
-IPython.display
+IPython
 
 requests
 
 bs4
 
-json
+flask
