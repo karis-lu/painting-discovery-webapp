@@ -7,3 +7,5 @@ IPython
 requests
 
 bs4
+
+flask

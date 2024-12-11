@@ -1,0 +1,18 @@
+{% extends "bootstrap_5_layout.html" %}
+{% set active_page = "artist_form" %}
+
+{% block content %}
+
+    <h2>Search By Artist </h2>
+    <br>
+    <form action="/artist/results" method="POST">
+
+        <label>Artist Name:</label>
+        <input type="text" name="artist_name" placeholder="Claude Monet" value="Claude Monet">
+        <br>
+        <br>
+
+        <button class="btn btn-success">Submit</button>
+    </form>
+
+{% endblock %}

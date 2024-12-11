@@ -43,63 +43,47 @@ def get_direct_image_url(search_query):
     else:
         print("No direct image link found")
         return None
-    
-def search_by_artist():
-    
+
+
+def search_by_artist(input_artist):
     # Load the data
     paintings_df = pd.read_csv("data/paintings.csv")
     artist_df = pd.read_csv("data/artist.csv")
 
-    correct = False
+    matching_artist = artist_df[artist_df['full_name'].str.contains(input_artist, case=False, na=False)]
+    
+    if matching_artist.empty:
+        raise ValueError(f"No records found for artist: {input_artist}")
 
-    while not correct:
-        input_artist = input("Please enter artist name: ")
+    # Store artist id, name, nationality
+    artist_id = matching_artist['artist_id'].iloc[0]
+    artist_name = matching_artist['full_name'].iloc[0]
+    print(f"Displaying results for {artist_name}")
 
-        matching_artist = artist_df[artist_df['full_name'].str.contains(input_artist, case=False, na=False)]
+    # Loop through paintings csv to find artist's works
+    matching_works = paintings_df[paintings_df['artist_id'] == artist_id].copy()
+    print(f"Found {len(matching_works)} records for artist: {input_artist}")
 
-        # Test to see if output is right
-        # print(matching_artist)
+    # Loop through matching_works dataframe and append image url to a new column
+    matching_works['image_url'] = matching_works.apply(
+        lambda row: get_direct_image_url(f"{row['name']} painting by {artist_name}"), axis=1)
 
-        # Check if there are matching rows
-        if matching_artist.empty:
-            print(f"No records found for artist: {input_artist}")
-            print(f"Check spelling and try again.")
-        else:
-            # Store artist id, name, nationality
-            artist_id = matching_artist['artist_id'].iloc[0]
-            artist_name = matching_artist['full_name'].iloc[0]
-            artist_nationality = matching_artist['nationality'].iloc[0]
-            print(f"Displaying results for {artist_name}")
-            correct = True
+    # Create a dictionary of results
+    results = [
+        {
+            "work_title": row['name'],
+            "artist_name": row['full_name'],
+            "nationality": row['nationality'],
+            "style": row['style'],
+            "museum_name": row['museum_name'],
+            "city": row['city'],
+            "country": row['country'],
+            "image_url": row['image_url']
+        }
+        for _, row in matching_works.iterrows()
+    ]
 
-        # Loop through works csv to find artist's works
-        matching_works = paintings_df[paintings_df['artist_id'] == artist_id]
-        print(f"Found {len(matching_works)} records for artist: {input_artist}")
-
-
-    # Loop through matching_works dataframe to display results
-    for index, row in matching_works.iterrows():
-        # Store variables
-        work_title = row['name']
-        style = row['style'] if not pd.isna(row['style']) else None
-        museum_name = row['museum_name'] if not pd.isna(row['museum_name']) else None
-        city = row['city'] if not pd.isna(row['city']) else None
-        country = row['country'] if not pd.isna(row['country']) else None
-        # Get image url
-        search_term = f"{work_title} painting by {artist_name}"
-        image_url = get_direct_image_url(search_term)
-        #print("Direct image URL:", image_url)
-        # Display output
-        print(f"Work Title: {work_title}")
-        print(f"Artist: {artist_name} Nationality: {artist_nationality}")
-        if style is not None:
-            print(f"Style: {style}")
-        if museum_name is not None:
-            print(f"Location: {museum_name} ({city}, {country})")
-        print(f"Image:")
-        display(Image(url=image_url, height=200))
-        print("-----------------------------------\n")
-
+    return results
 
 def search_by_style():
     # Load the data
@@ -160,8 +144,6 @@ def search_by_style():
         print(f"Image:")
         display(Image(url=image_url, height=200))
         print("-----------------------------------\n")
-
-
 
 if __name__ == "__main__":
     search_by_artist()
