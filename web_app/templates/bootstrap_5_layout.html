@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
     <title>Hello! | this is the title text</title>
+
+    {% block styles %}{% endblock %}
 </head>
 <body>
 
@@ -41,8 +43,8 @@
     -->
     {% set nav_links = [
         ('/artist', 'artist_form', 'Search By Artist'),
+        ('/style', 'style_form', 'Search By Style'),
         ('/about', 'about', 'About'),
-        ('/hello', 'hello', 'Hello'),
     ] -%}
     {% set active_page = active_page|default('home') -%}
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning">

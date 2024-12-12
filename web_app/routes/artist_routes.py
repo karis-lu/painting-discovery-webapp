@@ -2,7 +2,7 @@
 
 from flask import Blueprint, request, render_template, redirect, flash, Flask, jsonify, request
 
-from app.paintings import get_direct_image_url, search_by_artist
+from app.paintings import search_by_artist
 
 artist_routes = Blueprint("artist_routes", __name__)
 
@@ -38,4 +38,4 @@ def artist_results():
         print('OOPS', err)
 
         flash("Artist Not Found. Please try again!", "danger")
-        return redirect("/artist/form")
+        return redirect("/artist/")

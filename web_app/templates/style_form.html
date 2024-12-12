@@ -1,0 +1,22 @@
+{% extends "bootstrap_5_layout.html" %}
+{% set active_page = "style_form" %}
+
+{% block content %}
+
+    <h2>Search By Style </h2>
+    <br>
+    <form action="/style/results" method="POST">
+
+        <label>Art Style:</label>
+        <select name="style" id="style">
+            {% for style in styles %}
+                <option value="{{ style }}">{{ style }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+
+        <button class="btn btn-success">Submit</button>
+    </form>
+
+{% endblock %}
