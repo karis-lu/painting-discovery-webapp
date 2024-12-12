@@ -1,46 +1,35 @@
 {% extends "bootstrap_5_layout.html" %}
 {% set active_page = "home" %}
 
+{% block styles %}
+<style>
+    body {
+        background-image: url('https://t3.ftcdn.net/jpg/00/55/58/52/360_F_55585258_s6eZmsDKxK132KC6LE3U1BE3HAduZ8lH.jpg'); /* Replace with the path to your image */
+        background-size: cover; /* Ensures the image covers the entire page */
+        background-position: center; /* Centers the image */
+        background-attachment: fixed; /* Keeps the image fixed during scrolling */
+        background-repeat: no-repeat; /* Prevents tiling */
+    }
+
+
+</style>
+{% endblock %}
+
 {% block content %}
-
+<div class="content">
+    <br>
     <h1>Home Page</h1>
+    <h2>Start discovering paintings!</h2>
+    <br>
+    <h5>Welcome to our art discovery platform. Here, you can explore famous paintings, learn about artists, and discover art styles.</h5>
+    <br>
+    <br>
 
-    <p>Welcome! Click on the navigation bar to visit different pages.</p>
-
-    <!--
-        RESPONSIVE GRID OF CARDS
-        SEE:
-            https://getbootstrap.com/docs/5.0/layout/grid/
-            https://getbootstrap.com/docs/5.0/components/card/
-            https://getbootstrap.com/docs/5.0/components/card/#grid-cards
-      -->
-
-      <div class="row row-cols-3">
-
-        <div class="card col" style="width: 18rem; margin:20px;">
-            <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-
-        <div class="card col" style="width: 18rem; margin:20px;">
-            <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-
-        <div class="card col" style="width: 18rem; margin:20px;">
-            <img src="https://picsum.photos/300/200" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-
+    <!-- Buttons -->
+    <div>
+        <!-- Large Buttons with Solid and Outline Styles -->
+        <a href="/artist/form" class="btn btn-outline-info btn-lg">Search by Artist</a>
+        <a href="/style/form" class="btn btn-outline-info btn-lg">Search by Style</a>
     </div>
-
+</div>
 {% endblock %}
