@@ -2,33 +2,56 @@
 {% set active_page = "artist_results" %}
 
 {% block content %}
-
 <h1>Results</h1>
 
-<p class="lead">This is the results page</p>
+<p class="lead">Paintings by {{ artist_name }}</p>
 
-{% if results|length > 0 %}
-
-    <div class="row">
-        {% for result in results %}
-            <div class="col">
-                <div class="card" style="width: 15rem; margin-bottom: 20px;">
-                    <img class="card-img-top" src="{{ result.image_url }}" alt="an image of '{{ result.work_title }}'">
-                    <div class="card-body">
-                        <h6 class="card-title">{{ result.work_title }}</h6>
-                        <h7 class="card-subtitle mb-2 text-muted">{{ result.artist_name }} ({{ result.nationality}}) </h7>
-                        <p class="card-text">Style: {{ result.style }}</p>
-                        {% if result.museum_name and result.museum_name != 'NaN' %}
-                            <p class="card-text">Location: {{ result.museum_name }} ({{ result.city }}, {{ result.country }})</p>
-                        {% endif %}
-                    </div>
+<div id="results-container" class="row">
+    <!-- Initial results will be rendered here -->
+    {% for result in results %}
+        <div class="col result-item {% if loop.index > 20 %}d-none{% endif %}">
+            <div class="card" style="width: 15rem; margin-bottom: 20px;">
+                <img class="card-img-top" src="{{ result.image_url }}" alt="an image of '{{ result.work_title }}'">
+                <div class="card-body">
+                    <h6 class="card-title">{{ result.work_title }}</h6>
+                    <h7 class="card-subtitle mb-2 text-muted">{{ result.artist_name }} ({{ result.nationality }})</h7>
+                    <p class="card-text">Style: {{ result.style }}</p>
+                    {% if result.museum_name and result.museum_name != 'NaN' %}
+                        <p class="card-text">Location: {{ result.museum_name }} ({{ result.city }}, {{ result.country }})</p>
+                    {% endif %}
                 </div>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
+</div>
 
-{% else %}
-    <p>No results found.</p>
+{% if results|length > 20 %}
+    <div class="d-flex justify-content-center mt-4">
+        <button id="load-more-btn" class="btn btn-primary" data-offset="20">Load More</button>
+    </div>
 {% endif %}
 
+<!-- JavaScript for load more button generated with the help of ChatGPT -->
+<script>
+    document.getElementById('load-more-btn').addEventListener('click', function() {
+        const results = Array.from(document.querySelectorAll('.result-item')); // Matches the 'result-item' class
+        const loadMoreBtn = this;
+        const offset = parseInt(loadMoreBtn.getAttribute('data-offset'), 10);
+        const limit = 20;
+        const nextOffset = offset + limit;
+
+        // Show the next batch of results by removing the 'd-none' class
+        for (let i = offset; i < nextOffset && i < results.length; i++) {
+            results[i].classList.remove('d-none');
+        }
+
+        // Update the offset
+        loadMoreBtn.setAttribute('data-offset', nextOffset);
+
+        // Hide the button if all results are displayed
+        if (nextOffset >= results.length) {
+            loadMoreBtn.style.display = 'none';
+        }
+    });
+</script>
 {% endblock %}

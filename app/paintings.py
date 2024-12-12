@@ -47,7 +47,7 @@ def get_direct_image_url(search_query):
 
 def search_by_artist(input_artist):
     # Load the data
-    paintings_df = pd.read_csv("data/paintings.csv")
+    paintings_df = pd.read_csv("data/updated_paintings_with_images.csv")
     artist_df = pd.read_csv("data/artist.csv")
 
     matching_artist = artist_df[artist_df['full_name'].str.contains(input_artist, case=False, na=False)]
@@ -64,18 +64,14 @@ def search_by_artist(input_artist):
     matching_works = paintings_df[paintings_df['artist_id'] == artist_id].copy()
     print(f"Found {len(matching_works)} records for artist: {input_artist}")
 
-    # Loop through matching_works dataframe and append image url to a new column
-    matching_works['image_url'] = matching_works.apply(
-        lambda row: get_direct_image_url(f"{row['name']} painting by {artist_name}"), axis=1)
-
     # Create a dictionary of results
     results = [
         {
-            "work_title": row['name'],
+            "work_title": row['title'],
             "artist_name": row['full_name'],
             "nationality": row['nationality'],
             "style": row['style'],
-            "museum_name": row['museum_name'],
+            "museum_name": row['museum_name'] if not pd.isna(row['museum_name']) else None,
             "city": row['city'],
             "country": row['country'],
             "image_url": row['image_url']
@@ -85,7 +81,7 @@ def search_by_artist(input_artist):
 
     return results
 
-def search_by_style():
+def search_by_style(input_style):
     # Load the data
     paintings_df = pd.read_csv("data/paintings.csv")
     artist_df = pd.read_csv("data/artist.csv")
@@ -146,5 +142,8 @@ def search_by_style():
         print("-----------------------------------\n")
 
 if __name__ == "__main__":
-    search_by_artist()
-    search_by_style()
+    input_artist = input("Please enter artist name: ")
+    search_by_artist(input_artist)
+    
+    input_style = input("Please enter art style: ")
+    search_by_style(input_style)
