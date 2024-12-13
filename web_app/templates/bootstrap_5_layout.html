@@ -47,7 +47,7 @@
         ('/style', 'style_form', 'Search By Style'),
     ] -%}
     {% set active_page = active_page|default('home') -%}
-    <nav class="navbar navbar-light" style="background-color: #83b8e3;">
+    <nav class="navbar navbar-light bg-warning">
         <div class="container-fluid">
             <!--a class="navbar-brand" href="/">My Web App</a-->
             <a class="navbar-brand" href="/">
@@ -60,12 +60,7 @@
                 Painting Discovery Web App
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="navbar-nav ms-auto d-flex flex-row">
-                <ul class="navbar-nav ms-auto d-flex flex-row">
+            <ul class="navbar-nav ms-auto d-flex flex-row">
                 {% for href, page_id, link_text in nav_links %}
                     {% if page_id == active_page %}
                         {% set is_active = "active" -%}
@@ -73,7 +68,7 @@
                         {% set is_active = "" -%}
                     {% endif %}
 
-                    <li class="nav-item">
+                    <li class="nav-item me-3">
                         <a class="nav-link {{ is_active }}" href="{{href}}">{{link_text}}</a>
                     </li>
                 {% endfor %}
