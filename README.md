@@ -15,7 +15,6 @@ conda activate painting-discovery-env-2024
 Install packages:
 ```sh
 pip install -r requirements.txt
-```
 
 ## Usage
 
@@ -37,3 +36,4 @@ FLASK_APP=web_app flask run
 export FLASK_APP=web_app
 flask run
 ```
+
