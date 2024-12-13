@@ -10,7 +10,5 @@ bs4
 
 flask
 
-json
-
 #used in production to run our web app
 gunicorn
