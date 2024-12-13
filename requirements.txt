@@ -4,16 +4,13 @@ pandas
 
 IPython
 
-IPython.display
-
 requests
 
 bs4
 
 flask
 
-#used in production to run our web app
-gunicorn
-
 json
 
+#used in production to run our web app
+gunicorn
