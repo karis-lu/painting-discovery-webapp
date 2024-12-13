@@ -16,6 +16,14 @@ Install packages:
 ```sh
 pip install -r requirements.txt
 
+
+Create a ".env" file and add the following content (also mentioned below under Usage):
+
+```sh
+# this is the ".env" file:
+FLASK_APP=web_app
+```
+
 ## Usage
 
 Run the paintings script:
