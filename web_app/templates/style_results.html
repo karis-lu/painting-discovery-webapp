@@ -31,9 +31,11 @@
                 <div class="card-body">
                     <h6 class="card-title">{{ result.work_title }}</h6>
                     <h7 class="card-subtitle mb-2 text-muted">{{ result.artist_name }} ({{ result.nationality }})</h7>
-                    <p class="card-text">
-                        <span class="style-label">Style:</span> {{ result.style }}
-                    </p>
+                    {% if result.style and result.style != 'NaN' %}
+                        <p class="card-text">
+                            <span class="style-label">Style:</span> {{ result.style }}
+                        </p>
+                    {% endif %}
                     {% if result.museum_name and result.museum_name != 'NaN' %}
                         <p class="card-text">
                             <span class="location-label">Location:</span> {{ result.museum_name }} ({{ result.city }}, {{ result.country }})

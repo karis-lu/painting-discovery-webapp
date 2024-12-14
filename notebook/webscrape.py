@@ -7,7 +7,7 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 
-# Function citation: ChatGPT
+# Reference: ChatGPT
 def get_direct_image_url(search_query):
     """
     Fetches image url from the first result of a search query on bing.
@@ -47,7 +47,7 @@ def get_direct_image_url(search_query):
         print("No direct image link found")
         return None
 
-# function citation: ChatGPT
+# Reference: ChatGPT
 def get_wikipedia_image_url(search_term):
     """
     Scrapes the first full-resolution image URL from a Wikimedia Commons search page.

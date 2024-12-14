@@ -1,5 +1,9 @@
 # painting-discovery-webapp
 
+Our app provides a centralized platform that simplifies access to and exploration of famous painting data—offering an intuitive and educational experience.
+
+_Disclaimer: This project was developed as a practice exercise in building a user-friendly web app. While it aims to provide a comprehensive overview of famous paintings, some information and images may not be entirely accurate. For a detailed explanation of data constraints and considerations, refer to the appendix._
+
 ## Setup
 
 Create and activate a virtual environment (first time only):
@@ -15,6 +19,7 @@ conda activate painting-discovery-env-2024
 Install packages:
 ```sh
 pip install -r requirements.txt
+```
 
 
 Create a ".env" file and add the following content (also mentioned below under Usage):
@@ -45,3 +50,29 @@ export FLASK_APP=web_app
 flask run
 ```
 
+## Testing
+
+Run tests:
+
+```sh
+pytest
+```
+
+## Appendix
+
+#### Original Dataset
+The dataset used for this project is sourced from [Kaggle Famous Paintings Dataset](https://www.kaggle.com/datasets/mexwell/famous-paintings). This dataset provides information about notable artworks, their artists, and the museums where they are displayed.
+
+#### Data Preparation
+To create a consolidated dataset, three individual files from the original dataset—`artist.csv`, `work.csv`, and `museum.csv`—were joined together to produce `paintings.csv`. 
+
+The image URLs in the original dataset were not functional. To address this, web scraping was used to populate a new column with updated image URLs. (see `webscraping.py`)
+
+#### Data Limitations
+- **Image Accuracy**: Some images may not accurately represent the referenced artwork. They might depict unrelated or generic content due to basic web scraping implementation.
+
+- **Image Display Issues**: Images may fail to load or display properly because of hotlinking restrictions or CORS (Cross-Origin Resource Sharing) issues.
+
+- **Inaccurate Style Information**: The original dataset associates artists with a single style, which does not account for the fact that many artists worked across multiple styles throughout their careers. As a result, some style classifications are incorrect. 
+
+This app was developed as a final project for OPAN-3244 and should not be relied upon for precise scholarly or professional use.

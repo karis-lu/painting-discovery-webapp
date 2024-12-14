@@ -8,6 +8,10 @@ requests
 
 bs4
 
+pytest
+
+python-dotenv
+
 flask
 
 #used in production to run our web app
