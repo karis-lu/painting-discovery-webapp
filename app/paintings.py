@@ -13,7 +13,7 @@ def search_by_artist(input_artist):
     Returns a list of dictionaries containing information about paintings by a given artist.
     """
 
-    if input_artist.empty:
+    if not input_artist: # Empty string
         raise ValueError("Please enter an artist name.")
     
     # Load the data
@@ -68,7 +68,7 @@ def search_by_style(input_style):
     Returns a list of dictionaries containing information about paintings of a given style.
     """
         
-    if input_style.empty:
+    if not input_style: # Empty string
         raise ValueError("Please enter an art style.")
     
     # Load the data
