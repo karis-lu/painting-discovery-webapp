@@ -67,7 +67,7 @@ def search_by_style(input_style):
     """
     Returns a list of dictionaries containing information about paintings of a given style.
     """
-        
+
     if not input_style: # Empty string
         raise ValueError("Please enter an art style.")
     
