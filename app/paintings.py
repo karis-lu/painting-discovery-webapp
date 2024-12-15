@@ -13,6 +13,9 @@ def search_by_artist(input_artist):
     Returns a list of dictionaries containing information about paintings by a given artist.
     """
 
+    if input_artist.empty:
+        raise ValueError("Please enter an artist name.")
+    
     # Load the data
     paintings_df = pd.read_csv("data/paintings_with_links.csv")
     artist_df = pd.read_csv("data/artist.csv")
@@ -65,6 +68,9 @@ def search_by_style(input_style):
     Returns a list of dictionaries containing information about paintings of a given style.
     """
         
+    if input_style.empty:
+        raise ValueError("Please enter an art style.")
+    
     # Load the data
     paintings_df = pd.read_csv("data/paintings_with_links.csv")
 
