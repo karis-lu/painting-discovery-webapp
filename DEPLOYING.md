@@ -23,7 +23,7 @@ gunicorn "web_app:create_app()"
 
 Choose instance type of "free".
 
-Set any environment variables your applications needs. The Painting Discovery Web App does not require any API keys. If you implemented flash messaging, also set a `SECRET_KEY`.
+Set any environment variables your applications needs. The Painting Discovery Web App does not require any API keys. Since we implemented flash messaging, set a `SECRET_KEY`.
 
 Finally, click to "Deploy" the web service.
 
