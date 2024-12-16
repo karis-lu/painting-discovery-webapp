@@ -121,31 +121,29 @@ def fetch_wikipedia_image_url(row):
     search_term = f"{row['full_name']} {row['name']}"
     return get_wikipedia_image_url(search_term)
 
-# Example usage
-search_term = "bennecourt claude monet"
-image_url = get_wikipedia_image_url(search_term)
-print("Full-resolution image URL:", image_url)
+if __name__ == "__main__":
+    # Example usage
+    search_term = "bennecourt claude monet"
+    image_url = get_wikipedia_image_url(search_term)
+    print("Full-resolution image URL:", image_url)
 
+    # Load the data
+    paintings_df = pd.read_csv("data/paintings.csv")
+    #paintings_df = pd.read_csv("data/paintings_with_links.csv")
 
-# Load the data
-paintings_df = pd.read_csv("data/paintings.csv")
-#paintings_df = pd.read_csv("data/paintings_with_links.csv")
+    paintings_df['image_url'] = ""
 
-paintings_df['image_url'] = ""
+    # Comment out lines depending on how many sessions to scrape
+    paintings_df.loc[0:2000, 'image_url'] = paintings_df.iloc[0:2000].apply(get_wikipedia_image_url, axis=1)
 
-"""
-# Comment out lines depending on how many sessions to scrape
-paintings_df.loc[0:2000, 'image_url'] = paintings_df.iloc[0:2000].apply(get_wikipedia_image_url, axis=1)
+    paintings_df.loc[2000:4000, 'image_url'] = paintings_df.iloc[2000:4000].apply(get_wikipedia_image_url, axis=1)
 
-paintings_df.loc[2000:4000, 'image_url'] = paintings_df.iloc[2000:4000].apply(get_wikipedia_image_url, axis=1)
+    paintings_df.loc[4000:8000, 'image_url'] = paintings_df.iloc[4000:8000].apply(get_wikipedia_image_url, axis=1)
 
-paintings_df.loc[4000:8000, 'image_url'] = paintings_df.iloc[4000:8000].apply(get_wikipedia_image_url, axis=1)
+    paintings_df.loc[8000:12000, 'image_url'] = paintings_df.iloc[8000:12000].apply(get_wikipedia_image_url, axis=1)
 
-paintings_df.loc[8000:12000, 'image_url'] = paintings_df.iloc[8000:12000].apply(get_wikipedia_image_url, axis=1)
+    paintings_df.loc[12000:, 'image_url'] = paintings_df.iloc[12000:].apply(get_wikipedia_image_url, axis=1)
 
-paintings_df.loc[12000:, 'image_url'] = paintings_df.iloc[12000:].apply(get_wikipedia_image_url, axis=1)
-
-# Run with bing if wikipedia has no results
-paintings_df.loc[paintings_df['image_url'].isna(), 'image_url'] = paintings_df.loc[paintings_df['image_url'].isna()].apply(fetch_image_url, axis=1)
-paintings_df.to_csv("paintings_with_links.csv", index=False)
-"""
+    # Run with bing if wikipedia has no results
+    paintings_df.loc[paintings_df['image_url'].isna(), 'image_url'] = paintings_df.loc[paintings_df['image_url'].isna()].apply(fetch_image_url, axis=1)
+    paintings_df.to_csv("paintings_with_links.csv", index=False)
